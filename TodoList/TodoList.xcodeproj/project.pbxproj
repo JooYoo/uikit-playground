@@ -15,6 +15,7 @@
 		9A481B0128AA38D700DBE87B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A481AFF28AA38D700DBE87B /* LaunchScreen.storyboard */; };
 		9A481B0928AA47F900DBE87B /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A481B0828AA47F900DBE87B /* TaskListViewController.swift */; };
 		9A481B0C28AA7EB800DBE87B /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A481B0B28AA7EB800DBE87B /* AddTaskViewController.swift */; };
+		9A481B0F28AA859000DBE87B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A481B0E28AA859000DBE87B /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		9A481B0228AA38D700DBE87B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A481B0828AA47F900DBE87B /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		9A481B0B28AA7EB800DBE87B /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
+		9A481B0E28AA859000DBE87B /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		B20885BFC70357F3E7344609 /* Pods-TodoList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodoList.debug.xcconfig"; path = "Target Support Files/Pods-TodoList/Pods-TodoList.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,6 +75,7 @@
 		9A481AF328AA38D500DBE87B /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
+				9A481B0D28AA858700DBE87B /* Models */,
 				9A481B0A28AA483500DBE87B /* Controllers */,
 				9A481AFA28AA38D500DBE87B /* Main.storyboard */,
 				9A481AF428AA38D500DBE87B /* AppDelegate.swift */,
@@ -91,6 +94,14 @@
 				9A481B0B28AA7EB800DBE87B /* AddTaskViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		9A481B0D28AA858700DBE87B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9A481B0E28AA859000DBE87B /* Task.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		DD3BB0E8773F303492813557 /* Pods */ = {
@@ -219,6 +230,7 @@
 			files = (
 				9A481B0928AA47F900DBE87B /* TaskListViewController.swift in Sources */,
 				9A481B0C28AA7EB800DBE87B /* AddTaskViewController.swift in Sources */,
+				9A481B0F28AA859000DBE87B /* Task.swift in Sources */,
 				9A481AF528AA38D500DBE87B /* AppDelegate.swift in Sources */,
 				9A481AF728AA38D500DBE87B /* SceneDelegate.swift in Sources */,
 			);
