@@ -1,1 +1,6 @@
-init repo
+# TodoList
+
+## Tech stack
+- Swift
+- UIKit
+- RxSwift
