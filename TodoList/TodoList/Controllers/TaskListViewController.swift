@@ -33,13 +33,21 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return filteredTasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath)
         
+        cell.textLabel?.text = "\(filteredTasks[indexPath.row].priority): \(filteredTasks[indexPath.row].title)"
+        
         return cell
+    }
+    
+    private func updateTableView(){
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -80,6 +88,8 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
             // segmentedControl: other selected
             filteredTasks = tasks.value.filter{ $0.priority == priority}
         }
+        
+        updateTableView()
     }
 }
 
