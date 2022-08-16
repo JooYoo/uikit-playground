@@ -13,6 +13,7 @@ import RxCocoa
 class TaskListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // Rx
     let bag = DisposeBag()
+    let tasks = BehaviorRelay<[Task]>(value: [])
     // IBs
     @IBOutlet weak var prioritySegmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
@@ -44,7 +45,16 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Rx: subscribe to Subject to get notified when Task update
         addTaskViewController.taskSubjectObservable.subscribe(onNext: {
-            print("\($0.title): \($0.priority)")
+            // get new Task priority
+            /// -1: the amount of Segments in TaskListViewController is one less than in AddTaskViewController
+            let priority = Priority(rawValue: self.prioritySegmentedControl.selectedSegmentIndex - 1)
+            
+            // Rx: BehaviorRelay holds a list of Tasks
+            var existTasks = self.tasks.value
+            existTasks.append($0)
+            self.tasks.accept(existTasks)
+            
+            print(existTasks)
         }).disposed(by: bag)
     }
 }
