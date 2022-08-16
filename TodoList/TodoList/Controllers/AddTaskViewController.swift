@@ -11,6 +11,13 @@ import RxSwift
 import RxCocoa
 
 class AddTaskViewController: UIViewController {
+    // Rx
+    private let subject = PublishSubject<Task>()
+    var taskSubjectObservable: Observable<Task> {
+        return subject.asObservable()
+    }
+    
+    // IBs
     @IBOutlet weak var prioritySegmentedControl: UISegmentedControl!
     @IBOutlet weak var taskTitleTextField: UITextField!
     @IBAction func save(){
@@ -24,11 +31,14 @@ class AddTaskViewController: UIViewController {
         // init Task
         let task = Task(title: title, priority: priority)
         
-        print(task)
+        // Rx: publish event
+        subject.onNext(task)
+        
+        // dismiss modal
+        self.dismiss(animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
 }
