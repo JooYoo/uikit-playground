@@ -11,12 +11,20 @@ import RxSwift
 import RxCocoa
 
 class TaskListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    var filteredTasks = [Task]()
     // Rx
     let bag = DisposeBag()
     let tasks = BehaviorRelay<[Task]>(value: [])
     // IBs
     @IBOutlet weak var prioritySegmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
+    @IBAction func priorityValueChanged(segmentedControl: UISegmentedControl){
+        let priority = Priority(rawValue: segmentedControl.selectedSegmentIndex - 1)
+        
+        filterTasks(by: priority)
+        
+        print(filteredTasks)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,8 +62,24 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
             existTasks.append($0)
             self.tasks.accept(existTasks)
             
-            print(existTasks)
+            // filter tasks
+            self.filterTasks(by: priority)
+            
+            print(self.filteredTasks)
         }).disposed(by: bag)
+        
+        
+    }
+    
+    private func filterTasks(by priority: Priority?) {
+        
+        if priority == nil {
+            // segmentedControl: 'All' selected
+            filteredTasks = tasks.value
+        } else {
+            // segmentedControl: other selected
+            filteredTasks = tasks.value.filter{ $0.priority == priority}
+        }
     }
 }
 
