@@ -22,8 +22,6 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         let priority = Priority(rawValue: segmentedControl.selectedSegmentIndex - 1)
         
         filterTasks(by: priority)
-        
-        print(filteredTasks)
     }
     
     override func viewDidLoad() {
@@ -39,7 +37,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath)
         
-        cell.textLabel?.text = "\(filteredTasks[indexPath.row].priority): \(filteredTasks[indexPath.row].title)"
+        cell.textLabel?.text = "\(getEmoji(by: filteredTasks[indexPath.row].priority)): \(filteredTasks[indexPath.row].title)"
         
         return cell
     }
@@ -47,6 +45,17 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     private func updateTableView(){
         DispatchQueue.main.async {
             self.tableView.reloadData()
+        }
+    }
+    
+    private func getEmoji(by priority: Priority)->String{
+        switch priority {
+        case .High:
+            return "🥵"
+        case .Medium:
+            return "😐"
+        case .Low:
+            return "🥱"
         }
     }
     
@@ -75,8 +84,6 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
             
             print(self.filteredTasks)
         }).disposed(by: bag)
-        
-        
     }
     
     private func filterTasks(by priority: Priority?) {
