@@ -11,6 +11,9 @@ import RxSwift
 import RxCocoa
 
 class NewsTableViewController: UITableViewController {
+    var articles = [Article]()
+    // Rx
+    let bag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,9 +22,39 @@ class NewsTableViewController: UITableViewController {
         /// set title to large
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        // get API_KEY
-        let key = getKey()
-        print(key)
+       // fetch data from API
+        populateNews()
+    }
+    
+    private func refreshTable(){
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    private func populateNews(){
+        // build up endpoint
+        let url = URL(string: "https://newsapi.org/v2/top-headlines?country=us&apiKey=\(getKey())")!
+        
+        // fetch data from API
+        Observable.just(url)
+            .flatMap { url -> Observable<Data> in
+                // api call
+                let request = URLRequest(url: url)
+                return URLSession.shared.rx.data(request: request)
+            }.map { data -> [Article]? in
+                // decode the api data
+                return try? JSONDecoder().decode(ArticlesList.self, from: data).articles
+            }.subscribe(onNext: { [weak self] articles in
+                
+                if let articles = articles {
+                    // get data eventually
+                    self?.articles = articles
+                    print(self?.articles)
+                    // reload table
+                    self?.refreshTable()
+                }
+            }).disposed(by: bag)
     }
     
     func getKey() -> String{
