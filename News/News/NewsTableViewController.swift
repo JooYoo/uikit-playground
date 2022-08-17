@@ -26,6 +26,21 @@ class NewsTableViewController: UITableViewController {
         populateNews()
     }
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return articles.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleTableViewCell", for: indexPath) as? ArticleTableViewCell else{
+            fatalError("cell casting error")
+        }
+        
+        cell.titleLable.text = articles[indexPath.row].title
+        cell.descriptionLabel.text = articles[indexPath.row].description
+        
+        return cell
+    }
+    
     private func refreshTable(){
         DispatchQueue.main.async {
             self.tableView.reloadData()
