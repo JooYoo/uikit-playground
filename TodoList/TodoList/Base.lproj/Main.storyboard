@@ -41,10 +41,6 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="tLa-KV-ntJ"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="rTa-uP-uEw"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -61,7 +57,7 @@
                     <navigationItem key="navigationItem" title="TodoList" id="5BN-Cb-9Ev">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="AZX-J7-ncm">
                             <connections>
-                                <segue destination="BS2-oe-YTo" kind="presentation" id="J5e-at-Kdu"/>
+                                <segue destination="7eH-d0-iNr" kind="show" identifier="addTaskSegue" id="NHx-LG-HyK"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -79,11 +75,11 @@
             <objects>
                 <viewController id="7eH-d0-iNr" customClass="AddTaskViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mX0-XG-435">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="pU9-Ls-YUZ">
-                                <rect key="frame" x="104" y="79" width="206" height="32"/>
+                                <rect key="frame" x="104" y="111" width="206" height="32"/>
                                 <segments>
                                     <segment title="High"/>
                                     <segment title="Medium"/>
@@ -91,7 +87,7 @@
                                 </segments>
                             </segmentedControl>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rqu-ag-gfk">
-                                <rect key="frame" x="107" y="404" width="200" height="34"/>
+                                <rect key="frame" x="107" y="431" width="200" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="bqx-bR-TkF"/>
                                 </constraints>
@@ -122,7 +118,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oeW-YK-gKn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3078" y="129"/>
+            <point key="canvasLocation" x="2009" y="129"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YcF-gI-ikC">
@@ -141,24 +137,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BVe-6v-cva" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="76.811594202898561" y="128.57142857142856"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="2Rr-YO-lIl">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BS2-oe-YTo" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Uia-AO-19f">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="7eH-d0-iNr" kind="relationship" relationship="rootViewController" id="eFM-bv-UcS"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="icl-2r-nZ4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2311.594202898551" y="128.57142857142856"/>
         </scene>
     </scenes>
     <resources>

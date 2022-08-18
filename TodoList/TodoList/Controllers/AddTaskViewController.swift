@@ -34,8 +34,8 @@ class AddTaskViewController: UIViewController {
         // Rx: publish event
         subject.onNext(task)
         
-        // dismiss modal
-        self.dismiss(animated: true)
+        // pop view
+        self.navigationController?.popViewController(animated: true)
     }
     
     override func viewDidLoad() {

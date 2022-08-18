@@ -10,17 +10,16 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class TaskListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var filteredTasks = [Task]()
+class TaskListViewController: UIViewController, UITableViewDelegate {
     // Rx
     let bag = DisposeBag()
     let tasks = BehaviorRelay<[Task]>(value: [])
+    var filteredTasks = BehaviorRelay<[Task]>(value: [])
     // IBs
     @IBOutlet weak var prioritySegmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     @IBAction func priorityValueChanged(segmentedControl: UISegmentedControl){
         let priority = Priority(rawValue: segmentedControl.selectedSegmentIndex - 1)
-        
         filterTasks(by: priority)
     }
     
@@ -28,24 +27,8 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         // set TaskListView to a large title
         self.navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredTasks.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath)
         
-        cell.textLabel?.text = "\(getEmoji(by: filteredTasks[indexPath.row].priority)): \(filteredTasks[indexPath.row].title)"
-        
-        return cell
-    }
-    
-    private func updateTableView(){
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        bindTableView()
     }
     
     private func getEmoji(by priority: Priority)->String{
@@ -60,11 +43,8 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let navigationController = segue.destination as? UINavigationController else {
-            fatalError("get navigationController error")
-        }
-
-        guard let addTaskViewController = navigationController.viewControllers.first as? AddTaskViewController else{
+        
+        guard segue.identifier == "addTaskSegue", let addTaskViewController = segue.destination as? AddTaskViewController else {
             fatalError("get AddTaskViewController error")
         }
         
@@ -81,22 +61,32 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
             
             // filter tasks
             self.filterTasks(by: priority)
-            
-            print(self.filteredTasks)
         }).disposed(by: bag)
     }
     
+    func bindTableView() {
+        // Set tableview delegate. (for setting table view cell height)
+        tableView.rx
+            .setDelegate(self)
+            .disposed(by: bag)
+            
+        // Bind tasks with tableview
+        filteredTasks.asObservable()
+            .bind(to: tableView.rx
+                .items(cellIdentifier: "TaskTableViewCell", cellType: UITableViewCell.self)){ index, element, cell in
+                // Write data for cell label.
+                cell.textLabel?.text = "\(self.getEmoji(by: element.priority)): \(element.title)"
+        }.disposed(by: bag)
+    }
+    
     private func filterTasks(by priority: Priority?) {
-        
         if priority == nil {
             // segmentedControl: 'All' selected
-            filteredTasks = tasks.value
+            filteredTasks.accept(tasks.value)
         } else {
             // segmentedControl: other selected
-            filteredTasks = tasks.value.filter{ $0.priority == priority}
+            filteredTasks.accept(tasks.value.filter{ $0.priority == priority})
         }
-        
-        updateTableView()
     }
 }
 
