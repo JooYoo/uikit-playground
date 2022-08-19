@@ -24,6 +24,7 @@
 		9A2F28CF28AF8BDB00E24301 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A2F28D228AF8BDB00E24301 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A2F28D428AF8BDB00E24301 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A2F28DA28AF8C9E00E24301 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +41,7 @@
 		9A2F28BA28AF8BD800E24301 = {
 			isa = PBXGroup;
 			children = (
+				9A2F28DA28AF8C9E00E24301 /* Secrets.xcconfig */,
 				9A2F28C528AF8BD800E24301 /* Weather */,
 				9A2F28C428AF8BD800E24301 /* Products */,
 			);
@@ -168,6 +170,7 @@
 /* Begin XCBuildConfiguration section */
 		9A2F28D528AF8BDB00E24301 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A2F28DA28AF8C9E00E24301 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -228,6 +231,7 @@
 		};
 		9A2F28D628AF8BDB00E24301 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A2F28DA28AF8C9E00E24301 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
