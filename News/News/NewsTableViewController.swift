@@ -48,22 +48,11 @@ class NewsTableViewController: UITableViewController {
     }
     
     private func populateNews(){
-        // build up endpoint
-        let url = URL(string: "https://newsapi.org/v2/top-headlines?country=us&apiKey=\(getKey())")!
-        
         // fetch data from API
-        Observable.just(url)
-            .flatMap { url -> Observable<Data> in
-                // api call
-                let request = URLRequest(url: url)
-                return URLSession.shared.rx.data(request: request)
-            }.map { data -> [Article]? in
-                // decode the api data
-                return try? JSONDecoder().decode(ArticlesList.self, from: data).articles
-            }.subscribe(onNext: { [weak self] articles in
-                
-                if let articles = articles {
-                    // get data eventually
+        URLRequest.load(resource: ArticlesList.all)
+            .subscribe(onNext: { [weak self] articlesList in
+                if let articles = articlesList?.articles {
+                    // get eventual data
                     self?.articles = articles
                     print(self?.articles)
                     // reload table
@@ -72,14 +61,4 @@ class NewsTableViewController: UITableViewController {
             }).disposed(by: bag)
     }
     
-    func getKey() -> String{
-        // get apiKey from Bundle
-        let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String
-        // check if key is ok
-        guard let key = apiKey, !key.isEmpty else {
-            print("API key does not exist")
-            return ""
-        }
-        return key
-    }
 }
