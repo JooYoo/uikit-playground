@@ -15,6 +15,7 @@
 		9A2F28D028AF8BDB00E24301 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A2F28CF28AF8BDB00E24301 /* Assets.xcassets */; };
 		9A2F28D328AF8BDB00E24301 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A2F28D128AF8BDB00E24301 /* LaunchScreen.storyboard */; };
 		9A2F28DD28B0F1E300E24301 /* WeatherResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2F28DC28B0F1E300E24301 /* WeatherResult.swift */; };
+		9A2F28E028B0F86800E24301 /* URLRequestExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2F28DF28B0F86800E24301 /* URLRequestExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		9A2F28D428AF8BDB00E24301 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A2F28DA28AF8C9E00E24301 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		9A2F28DC28B0F1E300E24301 /* WeatherResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResult.swift; sourceTree = "<group>"; };
+		9A2F28DF28B0F86800E24301 /* URLRequestExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				9A2F28DB28B0F1A700E24301 /* Models */,
+				9A2F28DE28B0F82C00E24301 /* Extensions */,
 				9A2F28C628AF8BD800E24301 /* AppDelegate.swift */,
 				9A2F28C828AF8BD800E24301 /* SceneDelegate.swift */,
 				9A2F28CA28AF8BD800E24301 /* ViewController.swift */,
@@ -94,6 +97,14 @@
 				9A2F28DC28B0F1E300E24301 /* WeatherResult.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		9A2F28DE28B0F82C00E24301 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9A2F28DF28B0F86800E24301 /* URLRequestExt.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		B750A69A31A14BF91079560A /* Frameworks */ = {
@@ -223,6 +234,7 @@
 				9A2F28DD28B0F1E300E24301 /* WeatherResult.swift in Sources */,
 				9A2F28C728AF8BD800E24301 /* AppDelegate.swift in Sources */,
 				9A2F28C928AF8BD800E24301 /* SceneDelegate.swift in Sources */,
+				9A2F28E028B0F86800E24301 /* URLRequestExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
