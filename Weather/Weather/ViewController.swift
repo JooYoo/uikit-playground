@@ -25,36 +25,28 @@ class ViewController: UIViewController {
             .map{self.cityNameTextField.text}
             .subscribe(onNext:{ cityName in
                 if let cityName = cityName {
-                    if cityName.isEmpty {
-                        self.displayWeather(nil)
-                    } else {
-                        self.fetchWeather(cityName)
-                    }
+                    self.fetchWeather(cityName)
                 }
             }).disposed(by: bag)
     }
     
-    // MARK: display data on UI
-    func displayWeather(_ weather: Weather?){
-        if let weather = weather {
-            self.temperatureLabel.text = "\(weather.temp) ℉"
-            self.humidityLable.text = "\(weather.humidity) 💧"
-        } else {
-            self.temperatureLabel.text = "🍃"
-            self.humidityLable.text = "🍃"
-        }
-    }
-    
+    // MARK: display data on UI    
     func fetchWeather(_ cityName: String){
         let resource = Resource<WeatherResult>(url: URL.urlForWeatherAPI(cityName))
         
-        URLRequest.load(resource: resource)
+        let searchObservable = URLRequest.load(resource: resource)
             .observeOn(MainScheduler.instance)
             .catchErrorJustReturn(WeatherResult.empty)
-            .subscribe( onNext: {  weatherResult in
-                // get weather data
-                self.displayWeather(weatherResult.main)
-            }).disposed(by: bag)
+        
+        // bind to temperatureLable
+        searchObservable.map{ "\($0.main.temp) ℉"}
+            .bind(to: self.temperatureLabel.rx.text)
+            .disposed(by: bag)
+        
+        // bind to humidityLable
+        searchObservable.map{ "\($0.main.humidity) 💧" }
+            .bind(to: self.humidityLable.rx.text)
+            .disposed(by: bag)
     }
 }
 
