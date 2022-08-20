@@ -16,35 +16,44 @@ class ViewController: UIViewController {
     @IBOutlet weak var cityNameTextField: UITextField!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var humidityLable: UILabel!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchWeather()
-    }
-    
-    func fetchWeather(){
-        let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?q=ulm&units=metric&appid=\(getKey())")!
-        let resource = Resource<WeatherResult>(url: url)
-        
-        URLRequest.load(resource: resource)
-            .subscribe( onNext: {  weatherResult in
-                    // get weather data
-                    print(weatherResult.main)
+        // Rx: subscribe to cityNameTextField
+        self.cityNameTextField.rx.value
+            .subscribe(onNext:{ cityName in
+                if let cityName = cityName {
+                    if cityName.isEmpty {
+                        self.displayWeather(nil)
+                    } else {
+                        self.fetchWeather(cityName)
+                    }
+                }
             }).disposed(by: bag)
     }
-
-    func getKey() -> String{
-        // get apiKey from Bundle
-        let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String
-        
-        // check if key is ok
-        guard let key = apiKey, !key.isEmpty else {
-            print("API key does not exist")
-            return ""
+    
+    // MARK: display data on UI
+    func displayWeather(_ weather: Weather?){
+        if let weather = weather {
+            self.temperatureLabel.text = "\(weather.temp) ℉"
+            self.humidityLable.text = "\(weather.humidity) 💧"
+        } else {
+            self.temperatureLabel.text = "🍃"
+            self.humidityLable.text = "🍃"
         }
+    }
+    
+    func fetchWeather(_ cityName: String){
+        let resource = Resource<WeatherResult>(url: URL.urlForWeatherAPI(cityName))
         
-        return key
+        URLRequest.load(resource: resource)
+            .observeOn(MainScheduler.instance)
+            .catchErrorJustReturn(WeatherResult.empty)
+            .subscribe( onNext: {  weatherResult in
+                // get weather data
+                self.displayWeather(weatherResult.main)
+            }).disposed(by: bag)
     }
 }
 

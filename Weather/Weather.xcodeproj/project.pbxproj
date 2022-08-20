@@ -16,6 +16,8 @@
 		9A2F28D328AF8BDB00E24301 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A2F28D128AF8BDB00E24301 /* LaunchScreen.storyboard */; };
 		9A2F28DD28B0F1E300E24301 /* WeatherResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2F28DC28B0F1E300E24301 /* WeatherResult.swift */; };
 		9A2F28E028B0F86800E24301 /* URLRequestExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2F28DF28B0F86800E24301 /* URLRequestExt.swift */; };
+		9A2F28E228B1136E00E24301 /* URLExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2F28E128B1136E00E24301 /* URLExt.swift */; };
+		9A2F28E428B11D6600E24301 /* WeatherResultExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2F28E328B11D6600E24301 /* WeatherResultExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		9A2F28DA28AF8C9E00E24301 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		9A2F28DC28B0F1E300E24301 /* WeatherResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResult.swift; sourceTree = "<group>"; };
 		9A2F28DF28B0F86800E24301 /* URLRequestExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestExt.swift; sourceTree = "<group>"; };
+		9A2F28E128B1136E00E24301 /* URLExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExt.swift; sourceTree = "<group>"; };
+		9A2F28E328B11D6600E24301 /* WeatherResultExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResultExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				9A2F28DF28B0F86800E24301 /* URLRequestExt.swift */,
+				9A2F28E128B1136E00E24301 /* URLExt.swift */,
+				9A2F28E328B11D6600E24301 /* WeatherResultExt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -230,9 +236,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A2F28E428B11D6600E24301 /* WeatherResultExt.swift in Sources */,
 				9A2F28CB28AF8BD800E24301 /* ViewController.swift in Sources */,
 				9A2F28DD28B0F1E300E24301 /* WeatherResult.swift in Sources */,
 				9A2F28C728AF8BD800E24301 /* AppDelegate.swift in Sources */,
+				9A2F28E228B1136E00E24301 /* URLExt.swift in Sources */,
 				9A2F28C928AF8BD800E24301 /* SceneDelegate.swift in Sources */,
 				9A2F28E028B0F86800E24301 /* URLRequestExt.swift in Sources */,
 			);
