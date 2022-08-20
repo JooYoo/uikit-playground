@@ -30,22 +30,22 @@ class ViewController: UIViewController {
             }).disposed(by: bag)
     }
     
-    // MARK: display data on UI    
+    // MARK: display data on UI
     func fetchWeather(_ cityName: String){
         let resource = Resource<WeatherResult>(url: URL.urlForWeatherAPI(cityName))
         
-        let searchObservable = URLRequest.load(resource: resource)
+        let searchDriver = URLRequest.load(resource: resource)
             .observeOn(MainScheduler.instance)
-            .catchErrorJustReturn(WeatherResult.empty)
+            .asDriver(onErrorJustReturn: WeatherResult.empty)
         
         // bind to temperatureLable
-        searchObservable.map{ "\($0.main.temp) ℉"}
-            .bind(to: self.temperatureLabel.rx.text)
+        searchDriver.map{ "\($0.main.temp) ℉"}
+            .drive(self.temperatureLabel.rx.text)
             .disposed(by: bag)
         
         // bind to humidityLable
-        searchObservable.map{ "\($0.main.humidity) 💧" }
-            .bind(to: self.humidityLable.rx.text)
+        searchDriver.map{ "\($0.main.humidity) 💧" }
+            .drive(self.humidityLable.rx.text)
             .disposed(by: bag)
     }
 }
