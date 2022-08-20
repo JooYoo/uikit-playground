@@ -10,6 +10,10 @@ import RxSwift
 import RxCocoa
 
 class ViewController: UIViewController {
+    
+    @IBOutlet weak var cityNameTextField: UITextField!
+    @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var humidityLable: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
