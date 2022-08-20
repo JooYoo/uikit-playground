@@ -21,7 +21,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Rx: subscribe to cityNameTextField
-        self.cityNameTextField.rx.value
+        self.cityNameTextField.rx.controlEvent(.editingDidEndOnExit)
+            .map{self.cityNameTextField.text}
             .subscribe(onNext:{ cityName in
                 if let cityName = cityName {
                     if cityName.isEmpty {
