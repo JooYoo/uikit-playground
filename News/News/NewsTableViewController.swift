@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 class NewsTableViewController: UITableViewController {
-    var articles = [Article]()
+    private var articleListVM: ArticleListViewModel!
     // Rx
     let bag = DisposeBag()
     
@@ -27,7 +27,7 @@ class NewsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return articles.count
+        return articleListVM == nil ? 0 : articleListVM.articlesVM.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -35,8 +35,17 @@ class NewsTableViewController: UITableViewController {
             fatalError("cell casting error")
         }
         
-        cell.titleLable.text = articles[indexPath.row].title
-        cell.descriptionLabel.text = articles[indexPath.row].description
+        let articleVM = articleListVM.articleAt(indexPath.row)
+        
+        articleVM.title
+            .asDriver(onErrorJustReturn: "🍃")
+            .drive(cell.titleLable.rx.text)
+            .disposed(by: bag)
+        
+        articleVM.description
+            .asDriver(onErrorJustReturn: "🍃")
+            .drive(cell.descriptionLabel.rx.text)
+            .disposed(by: bag)
         
         return cell
     }
@@ -52,15 +61,11 @@ class NewsTableViewController: UITableViewController {
         
         // fetch data from API
         URLRequest.load(resource: resource)
-            .subscribe(onNext: { [weak self] ArticlesList in
-                if let articles = ArticlesList?.articles {
-                    // get eventual data
-                    self?.articles = articles
-                    print(self?.articles)
-                    // reload table
-                    self?.refreshTable()
-                }
+            .subscribe(onNext: { articlesList in
+                let articles = articlesList?.articles
+                self.articleListVM = ArticleListViewModel(articles!)
+                // refresh Table
+                self.refreshTable()
             }).disposed(by: bag)
     }
-    
 }

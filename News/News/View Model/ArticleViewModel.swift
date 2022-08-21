@@ -10,21 +10,15 @@ import RxSwift
 import RxCocoa
 
 struct ArticleViewModel {
-    
     let article: Article
-    
-    init(_ article: Article){
-        self.article = article
-    }
-}
-
-extension ArticleViewModel {
-    
     var title: Observable<String> {
         return Observable<String>.just(article.title)
     }
-    
     var description: Observable<String> {
         return Observable<String>.just(article.description ?? "")
+    }
+    
+    init(_ article: Article){
+        self.article = article
     }
 }

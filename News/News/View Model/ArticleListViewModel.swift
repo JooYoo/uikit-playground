@@ -11,15 +11,10 @@ import RxCocoa
 
 struct ArticleListViewModel {
     let articlesVM: [ArticleViewModel]
-}
-
-extension ArticleListViewModel {
+    
     init(_ articles: [Article]){
         articlesVM = articles.compactMap(ArticleViewModel.init)
     }
-}
-
-extension ArticleListViewModel {
     
     func articleAt(_ index: Int) -> ArticleViewModel {
         return articlesVM[index]
