@@ -48,10 +48,12 @@ class NewsTableViewController: UITableViewController {
     }
     
     private func populateNews(){
+        let resource = Resource<ArticlesList>(url: URL.urlForNewsAPI())
+        
         // fetch data from API
-        URLRequest.load(resource: ArticlesList.all)
-            .subscribe(onNext: { [weak self] articlesList in
-                if let articles = articlesList?.articles {
+        URLRequest.load(resource: resource)
+            .subscribe(onNext: { [weak self] ArticlesList in
+                if let articles = ArticlesList?.articles {
                     // get eventual data
                     self?.articles = articles
                     print(self?.articles)

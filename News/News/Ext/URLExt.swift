@@ -2,26 +2,24 @@
 //  URLExt.swift
 //  News
 //
-//  Created by Yu on 19.08.22.
+//  Created by Yu on 21.08.22.
 //
 
 import Foundation
-import RxSwift
-import RxCocoa
 
-struct Resource<T: Codable> {
-    let url: URL
+extension URL {
+    static func urlForNewsAPI() -> URL {
+        return URL(string: "https://newsapi.org/v2/top-headlines?country=us&apiKey=\(getKey())")!
+    }
 }
 
-extension URLRequest {
-    
-    static func load<T>(resource: Resource<T>)->Observable<T?>{
-        return Observable.just(resource.url)
-            .flatMap{ url -> Observable<Data> in
-                let request = URLRequest(url: url)
-                return URLSession.shared.rx.data(request: request)
-            }.map{ data -> T? in
-                return try? JSONDecoder().decode(T.self, from: data)
-            }.asObservable()
+func getKey() -> String{
+    // get apiKey from Bundle
+    let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String
+    // check if key is ok
+    guard let key = apiKey, !key.isEmpty else {
+        print("API key does not exist")
+        return ""
     }
+    return key
 }
