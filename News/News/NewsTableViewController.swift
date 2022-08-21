@@ -10,62 +10,52 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class NewsTableViewController: UITableViewController {
-    private var articleListVM: ArticleListViewModel!
+class NewsTableViewController: UIViewController, UITableViewDelegate {
+    @IBOutlet weak var tableRef: UITableView!
+
     // Rx
     let bag = DisposeBag()
+    private var articles = BehaviorRelay<[Article]>(value: [])
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // UI
-        /// set title to large
+        // set title to large
         navigationController?.navigationBar.prefersLargeTitles = true
         
-       // fetch data from API
-        populateNews()
+        // fetch articles from API
+        fetchData()
+        // fetched data binds to UI
+        bindToTableView()
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return articleListVM == nil ? 0 : articleListVM.articlesVM.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleTableViewCell", for: indexPath) as? ArticleTableViewCell else{
-            fatalError("cell casting error")
-        }
-        
-        let articleVM = articleListVM.articleAt(indexPath.row)
-        
-        articleVM.title
-            .asDriver(onErrorJustReturn: "🍃")
-            .drive(cell.titleLable.rx.text)
-            .disposed(by: bag)
-        
-        articleVM.description
-            .asDriver(onErrorJustReturn: "🍃")
-            .drive(cell.descriptionLabel.rx.text)
-            .disposed(by: bag)
-        
-        return cell
-    }
-    
-    private func refreshTable(){
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
-    private func populateNews(){
+    private func fetchData() {
+        // get URL ready
         let resource = Resource<ArticlesList>(url: URL.urlForNewsAPI())
         
-        // fetch data from API
+        // fetch data
         URLRequest.load(resource: resource)
-            .subscribe(onNext: { articlesList in
-                let articles = articlesList?.articles
-                self.articleListVM = ArticleListViewModel(articles!)
-                // refresh Table
-                self.refreshTable()
+            .subscribe( onNext: { articleList in
+                if let articles = articleList?.articles{
+                    self.articles.accept(articles)
+                    print(self.articles)
+                }
             }).disposed(by: bag)
+    }
+    
+    private func bindToTableView(){
+        // Set tableview delegate
+        tableRef.rx
+            .setDelegate(self)
+            .disposed(by: bag)
+        
+        // bind articles to tableview
+        articles
+            .asObservable()
+            .bind(to: tableRef.rx
+                .items(cellIdentifier: "ArticleTableViewCell", cellType: ArticleTableViewCell.self)) { index, element, cell in
+                    cell.titleLable.text = element.title
+                    cell.descriptionLabel.text = element.description
+                }.disposed(by: bag)
     }
 }

@@ -54,12 +54,11 @@
                                 </connections>
                             </tableViewCell>
                         </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="0yk-ge-IRi" id="ZnL-1a-k0P"/>
-                            <outlet property="delegate" destination="0yk-ge-IRi" id="i9i-qL-dVV"/>
-                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="News" id="I48-GF-kkJ"/>
+                    <connections>
+                        <outlet property="tableRef" destination="Vev-Nq-K5T" id="com-0q-X0e"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HIk-VH-o5o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
