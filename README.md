@@ -25,7 +25,7 @@
     </td>
     <td>
       <kbd>
-        🌁
+        <img src="https://user-images.githubusercontent.com/12739843/186199779-4afa21e5-fcc3-4ec8-95b3-d2e87ab36c0c.gif" width="200px" alt="uikit news"/>
       </kbd>
     </td>
   </tr>
