@@ -34,3 +34,17 @@
 </table>
 
 ## Media
+<table>
+  <tr>
+    <th>
+      <a href="https://github.com/JooYoo/uikit-playground/tree/vplayer" target="_blank">Video Player</a>
+    </th>
+  </tr>
+  <tr>
+    <td>
+       <kbd>
+         🌅
+      </kbd>
+    </td>
+  </tr>
+</table>
