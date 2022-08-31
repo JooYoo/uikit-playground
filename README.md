@@ -43,7 +43,7 @@
   <tr>
     <td>
        <kbd>
-         🌅
+         <img src="https://user-images.githubusercontent.com/12739843/187738955-6c89a0bc-2230-4869-8223-5663c3ca76c6.gif" width="200px" alt="uikit videoPlayer"/>
       </kbd>
     </td>
   </tr>
