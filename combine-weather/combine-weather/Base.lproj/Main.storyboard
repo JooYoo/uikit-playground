@@ -22,16 +22,25 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fpc-BF-spY">
+                                <rect key="frame" x="20" y="396" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="0nE-H2-RRS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="394" id="YGc-GA-aou"/>
+                            <constraint firstItem="fpc-BF-spY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="352" id="dUR-wl-J7m"/>
                             <constraint firstItem="0nE-H2-RRS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kEI-8M-pUF"/>
+                            <constraint firstItem="fpc-BF-spY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="lJS-rt-Qnb"/>
                             <constraint firstItem="0nE-H2-RRS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pzl-sE-bAa"/>
+                            <constraint firstItem="fpc-BF-spY" firstAttribute="centerX" secondItem="0nE-H2-RRS" secondAttribute="centerX" id="v5c-9A-2gh"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cityTextField" destination="fpc-BF-spY" id="GNc-ND-FSR"/>
                         <outlet property="temperature" destination="0nE-H2-RRS" id="tfU-HU-R6e"/>
                     </connections>
                 </viewController>

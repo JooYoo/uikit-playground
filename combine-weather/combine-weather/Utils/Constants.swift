@@ -9,7 +9,9 @@ import Foundation
 
 struct Constants {
     struct URLs {
-        static let weather = "https://api.openweathermap.org/data/2.5/weather?q=ulm&units=metric&appid=\(getKey())"
+        static func weather(_ city: String) -> String {
+            return "https://api.openweathermap.org/data/2.5/weather?q=\(city)&units=metric&appid=\(getKey())"
+        }
         
         static func getKey() -> String{
              // get apiKey from Bundle

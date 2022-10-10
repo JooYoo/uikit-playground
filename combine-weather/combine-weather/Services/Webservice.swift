@@ -11,7 +11,7 @@ import Combine
 class Webservice {
     func fetchWeather(city: String) -> AnyPublisher<WeatherInfo, Error> {
         // get URL
-        guard let url = URL(string: Constants.URLs.weather) else {
+        guard let url = URL(string: Constants.URLs.weather(city)) else {
             fatalError("Invalid url")
         }
         
